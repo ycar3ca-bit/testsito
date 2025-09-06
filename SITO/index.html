@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhiteDarkness - Home</title>
+    <style>
+        :root {
+            --main-bg-color: #0a0a14;
+            --accent-color: #8a2be2;
+            --text-color: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.05);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: var(--main-bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(138, 43, 226, 0.1) 0%, transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(138, 43, 226, 0.1) 0%, transparent 25%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* HEADER */
+        header {
+            text-align: center;
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .logo {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #8a2be2, #00bfff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(138, 43, 226, 0.5);
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+        
+        /* CHAT SECTION */
+        .chat-section {
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .chat-options {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .chat-btn {
+            padding: 1.5rem 2.5rem;
+            background: var(--card-bg);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            border-radius: 15px;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 200px;
+        }
+        
+        .chat-btn:hover {
+            background: rgba(138, 43, 226, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(138, 43, 226, 0.3);
+        }
+        
+        /* CHAT MODAL */
+        .chat-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--main-bg-color);
+            border: 2px solid var(--accent-color);
+            border-radius: 15px;
+            padding: 2rem;
+            z-index: 1000;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 0 50px rgba(138, 43, 226, 0.5);
+        }
+        
+        .modal-content {
+            text-align: center;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--accent-color);
+        }
+        
+        .chat-code {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: rgba(138, 43, 226, 0.1);
+            border-radius: 10px;
+            letter-spacing: 3px;
+        }
+        
+        .chat-actions {
+            margin: 2rem 0;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 0.5rem;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: #6a1cb9;
+            transform: translateY(-2px);
+        }
+        
+        .chat-interface {
+            margin-top: 2rem;
+            text-align: left;
+        }
+        
+        .chat-messages {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        .message {
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            border-radius: 10px;
+            background: rgba(138, 43, 226, 0.15);
+            border-left: 3px solid var(--accent-color);
+        }
+        
+        .chat-input {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        #messageInput {
+            flex: 1;
+            padding: 1rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
+            font-size: 1rem;
+        }
+        
+        /* SHOP SECTION */
+        .shop-section {
+            padding: 4rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .shop-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .shop-title {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(138, 43, 226, 0.2);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #8a2be2, #00bfff);
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+        
+        .product-name {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+        
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+        
+        .buy-btn {
+            padding: 1rem 2rem;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .buy-btn:hover {
+            background: #6a1cb9;
+            transform: translateY(-2px);
+        }
+        
+        /* PROTECTION */
+        .no-screenshot {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        .protection-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 9999;
+            display: none;
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 10px;
+            border: 1px solid #ff6b6b;
+        }
+    </style>
+</head>
+<body class="no-screenshot">
+    <div class="protection-overlay" id="protectionOverlay"></div>
+    
+    <div class="container">
+        <header>
+            <h1 class="logo">WHITEDARKNESS</h1>
+        </header>
+
+        <!-- CHAT SECTION -->
+        <section class="chat-section">
+            <h2>CHAT PRIVATA SICURA</h2>
+            <p>Codici monouso - Una volta chiusa la chat, il codice viene invalidato</p>
+            
+            <div class="chat-options">
+                <button class="chat-btn" onclick="createChat()">Crea Nuova Chat</button>
+                <button class="chat-btn" onclick="joinChat()">Unisciti a Chat</button>
+                <button class="chat-btn" onclick="shareChat()">Condividi Codice</button>
+            </div>
+        </section>
+
+        <!-- SHOP SECTION -->
+        <section class="shop-section">
+            <div class="shop-header">
+                <h2 class="shop-title">NEGOZIO WHITEDARKNESS</h2>
+                <p>Prodotti esclusivi e limited edition</p>
+            </div>
+            
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">🖥️</div>
+                    <h3 class="product-name">Premium VPN</h3>
+                    <p>Accesso illimitato e protetto</p>
+                    <div class="product-price">€29.99/mese</div>
+                    <button class="buy-btn">Acquista Ora</button>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">🔒</div>
+                    <h3 class="product-name">Suite Sicurezza</h3>
+                    <p>Protezione completa 360°</p>
+                    <div class="product-price">€49.99</div>
+                    <button class="buy-btn">Acquista Ora</button>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">💎</div>
+                    <h3 class="product-name">Account Premium</h3>
+                    <p>Funzionalità esclusive</p>
+                    <div class="product-price">€99.99</div>
+                    <button class="buy-btn">Acquista Ora</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- CHAT MODAL -->
+    <div class="chat-modal" id="chatModal">
+        <span class="close-modal" onclick="closeChatModal()">×</span>
+        <div class="modal-content">
+            <h2 id="modalTitle">CHAT PRIVATA</h2>
+            
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+            
+            <div id="codeSection">
+                <p>Codice della chat:</p>
+                <div class="chat-code" id="chatCode">Generando...</div>
+                <p style="font-size: 0.9rem; color: #ccc; margin-top: 0.5rem;">⚠️ Questo codice sarà valido solo per una sessione</p>
+            </div>
+            
+            <div id="joinSection" style="display: none;">
+                <input type="text" id="joinCodeInput" placeholder="Inserisci codice chat" style="padding: 1rem; width: 100%; margin: 1rem 0; border-radius: 50px; border: 1px solid #8a2be2; background: rgba(0,0,0,0.2); color: white;">
+                <p style="font-size: 0.9rem; color: #ccc;">Inserisci il codice monouso fornito dal creatore</p>
+            </div>
+            
+            <div class="chat-actions">
+                <button class="btn" onclick="handleChatAction()" id="actionBtn">Copia Codice</button>
+                <button class="btn" onclick="startChat()" id="startBtn" style="display: none;">Avvia Chat</button>
+            </div>
+            
+            <div class="chat-interface" id="chatInterface">
+                <h3>Chat Attiva - <span id="activeCode"></span></h3>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message">Sistema: Chat monouso attivata. Una volta chiusa, il codice non sarà più valido.</div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="messageInput" placeholder="Scrivi un messaggio..." onkeypress="handleKeyPress(event)">
+                    <button class="btn" onclick="sendMessage()">Invia</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentChatCode = '';
+        let isJoining = false;
+        let usedCodes = JSON.parse(localStorage.getItem('usedChatCodes') || '[]');
+
+        // GENERA CODICE CHAT UNICO
+        function generateChatCode() {
+            let code = '';
+            do {
+                code = 'WD-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+            } while (usedCodes.includes(code));
+            
+            return code;
+        }
+
+        // CREA CHAT
+        function createChat() {
+            isJoining = false;
+            const modal = document.getElementById('chatModal');
+            const codeSection = document.getElementById('codeSection');
+            const joinSection = document.getElementById('joinSection');
+            const actionBtn = document.getElementById('actionBtn');
+            const startBtn = document.getElementById('startBtn');
+            const modalTitle = document.getElementById('modalTitle');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            errorMessage.style.display = 'none';
+            currentChatCode = generateChatCode();
+            document.getElementById('chatCode').textContent = currentChatCode;
+            
+            codeSection.style.display = 'block';
+            joinSection.style.display = 'none';
+            actionBtn.textContent = 'Copia Codice';
+            actionBtn.style.display = 'inline-block';
+            startBtn.style.display = 'none';
+            modalTitle.textContent = 'CREA CHAT PRIVATA';
+            
+            modal.style.display = 'block';
+            activateProtection();
+        }
+
+        // UNISCITI A CHAT
+        function joinChat() {
+            isJoining = true;
+            const modal = document.getElementById('chatModal');
+            const codeSection = document.getElementById('codeSection');
+            const joinSection = document.getElementById('joinSection');
+            const actionBtn = document.getElementById('actionBtn');
+            const startBtn = document.getElementById('startBtn');
+            const modalTitle = document.getElementById('modalTitle');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            errorMessage.style.display = 'none';
+            codeSection.style.display = 'none';
+            joinSection.style.display = 'block';
+            actionBtn.textContent = 'Unisciti';
+            actionBtn.style.display = 'inline-block';
+            startBtn.style.display = 'none';
+            modalTitle.textContent = 'UNISCITI A CHAT';
+            
+            modal.style.display = 'block';
+        }
+
+        // CONDIVIDI CHAT
+        function shareChat() {
+            if (currentChatCode) {
+                navigator.clipboard.writeText(currentChatCode).then(() => {
+                    alert('Codice chat copiato: ' + currentChatCode + '\n\n⚠️ Questo codice è valido solo per una sessione!');
+                });
+            } else {
+                alert('Crea prima una chat per condividere il codice');
+            }
+        }
+
+        // GESTISCI AZIONE CHAT
+        function handleChatAction() {
+            const errorMessage = document.getElementById('errorMessage');
+            
+            if (isJoining) {
+                const joinCode = document.getElementById('joinCodeInput').value.trim().toUpperCase();
+                
+                if (!joinCode) {
+                    showError('Inserisci un codice valido');
+                    return;
+                }
+                
+                if (usedCodes.includes(joinCode)) {
+                    showError('❌ Codice già utilizzato o invalidato');
+                    return;
+                }
+                
+                if (!joinCode.startsWith('WD-') || joinCode.length !== 12) {
+                    showError('❌ Formato codice non valido');
+                    return;
+                }
+                
+                currentChatCode = joinCode;
+                document.getElementById('chatCode').textContent = currentChatCode;
+                document.getElementById('codeSection').style.display = 'block';
+                document.getElementById('joinSection').style.display = 'none';
+                document.getElementById('actionBtn').style.display = 'none';
+                document.getElementById('startBtn').style.display = 'inline-block';
+                
+            } else {
+                copyChatCode();
+            }
+        }
+
+        // MOSTRA ERRORE
+        function showError(message) {
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            
+            setTimeout(() => {
+                errorMessage.style.display = 'none';
+            }, 3000);
+        }
+
+        // COPIA CODICE
+        function copyChatCode() {
+            navigator.clipboard.writeText(currentChatCode).then(() => {
+                alert('Codice copiato: ' + currentChatCode + '\n\n⚠️ Condividilo rapidamente, sarà valido solo per una sessione!');
+            });
+        }
+
+        // AVVIA CHAT
+        function startChat() {
+            // Aggiungi il codice alla lista dei codici attivi
+            if (!usedCodes.includes(currentChatCode)) {
+                usedCodes.push(currentChatCode);
+                localStorage.setItem('usedChatCodes', JSON.stringify(usedCodes));
+            }
+            
+            document.getElementById('chatInterface').style.display = 'block';
+            document.getElementById('activeCode').textContent = currentChatCode;
+            localStorage.setItem('currentChat', currentChatCode);
+            localStorage.setItem('chatMessages', JSON.stringify([]));
+            
+            // Messaggio di sistema
+            const messages = JSON.parse(localStorage.getItem('chatMessages') || '[]');
+            messages.push({
+                text: 'Chat monouso attivata. Questo codice sarà invalidato alla chiusura.',
+                timestamp: new Date().toLocaleTimeString(),
+                user: 'Sistema'
+            });
+            localStorage.setItem('chatMessages', JSON.stringify(messages));
+            updateChatDisplay();
+        }
+
+        // INVIA MESSAGGIO
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                const messages = JSON.parse(localStorage.getItem('chatMessages') || '[]');
+                messages.push({
+                    text: message,
+                    timestamp: new Date().toLocaleTimeString(),
+                    user: 'Tu'
+                });
+                
+                localStorage.setItem('chatMessages', JSON.stringify(messages));
+                updateChatDisplay();
+                input.value = '';
+            }
+        }
+
+        // AGGIORNA CHAT
+        function updateChatDisplay() {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messages = JSON.parse(localStorage.getItem('chatMessages') || '[]');
+            
+            messagesContainer.innerHTML = '';
+            
+            messages.forEach(msg => {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message';
+                messageDiv.innerHTML = `<strong>${msg.user}</strong> (${msg.timestamp}):<br>${msg.text}`;
+                messagesContainer.appendChild(messageDiv);
+            });
+            
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // CHIUDI MODALE - INVALIDA CODICE
+        function closeChatModal() {
+            if (currentChatCode && usedCodes.includes(currentChatCode)) {
+                // Il codice rimane nella lista usedCodes, quindi è invalidato permanentemente
+                localStorage.setItem('usedChatCodes', JSON.stringify(usedCodes));
+            }
+            
+            // Pulisci tutto
+            localStorage.removeItem('currentChat');
+            localStorage.removeItem('chatMessages');
+            
+            document.getElementById('chatModal').style.display = 'none';
+            document.getElementById('chatInterface').style.display = 'none';
+            document.getElementById('joinCodeInput').value = '';
+            deactivateProtection();
+            
+            currentChatCode = '';
+        }
+
+        // PROTEZIONE ANTI-SCREENSHOT
+        function activateProtection() {
+            document.addEventListener('contextmenu', blockRightClick);
+            document.addEventListener('keydown', blockPrintScreen);
+        }
+
+        function deactivateProtection() {
+            document.removeEventListener('contextmenu', blockRightClick);
+            document.removeEventListener('keydown', blockPrintScreen);
+        }
+
+        function blockRightClick(e) {
+            e.preventDefault();
+        }
+
+        function blockPrintScreen(e) {
+            if (e.key === 'PrintScreen') {
+                e.preventDefault();
+            }
+        }
+
+        // INVIO CON ENTER
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // PULIZIA AUTOMATICA CODICI VECCHI (ogni 24 ore)
+        setInterval(() => {
+            const dayAgo = Date.now() - (24 * 60 * 60 * 1000);
+            const oldUsedCodes = JSON.parse(localStorage.getItem('oldUsedCodes') || '[]');
+            
+            // I codici rimangono in usedCodes permanentemente per prevenire riutilizzo
+            localStorage.setItem('usedChatCodes', JSON.stringify(usedCodes));
+        }, 60 * 60 * 1000); // Controlla ogni ora
+    </script>
+</body>
+</html>
